@@ -21,6 +21,7 @@ module.exports = swaggerJsdoc({
         components: {
             securitySchemes: {
                 bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+                internalKeyAuth: { type: 'apiKey', in: 'header', name: 'x-internal-key' }
             },
         },
     },

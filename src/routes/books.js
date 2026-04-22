@@ -196,6 +196,8 @@ router.delete('/:id', authenticate, controller.deleteBook);
  *   patch:
  *     summary: Update book status (internal only)
  *     tags: [Books]
+ *     security:
+ *       - internalKeyAuth: []
  *     parameters:
  *       - in: path
  *         name: id
