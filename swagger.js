@@ -8,7 +8,16 @@ module.exports = swaggerJsdoc({
             version: '1.0.0',
             description: 'User registration, authentication, and profile management',
         },
-        servers: [{ url: 'http://localhost:3002' }],
+        servers: [
+            {
+                url: 'https://book-listing-service.onrender.com',
+                description: 'Production Server'
+            },
+            {
+                url: 'http://localhost:3002',
+                description: 'Local Development'
+            }
+        ],
         components: {
             securitySchemes: {
                 bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
