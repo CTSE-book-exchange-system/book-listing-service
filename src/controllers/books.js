@@ -51,9 +51,9 @@ exports.createBook = async (req, res) => {
 exports.getBooks = async (req, res) => {
     try {
         const { page, limit, ...filters } = req.query;
-        const { books, total } = await bookModel.findAll(filters, { page, limit });
-        const p = parseInt(page) || 1;
-        const l = parseInt(limit) || 20;
+        const p = Math.max(1, parseInt(page) || 1);
+        const l = Math.min(50, Math.max(1, parseInt(limit) || 20));
+        const { books, total } = await bookModel.findAll(filters, { page: p, limit: l });
 
         return res.json({
             success: true,

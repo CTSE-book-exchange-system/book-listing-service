@@ -2,16 +2,27 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('../swagger');
 
 const app = express();
 
 // Security middleware
 app.use(helmet());
+const { randomUUID } = require('crypto');
+
+app.use((req, res, next) => {
+    const requestId = randomUUID();
+    req.requestId = requestId;
+    res.setHeader('X-Request-Id', requestId);
+    next();
+});
 app.use(cors({ origin: process.env.ALLOWED_ORIGINS || '*' }));
-app.use(express.json());
+app.use(express.json({ limit: '10kb' }));
 
 // Routes
 app.use('/api/books', require('./routes/books'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Health check
 app.get('/api/health', (req, res) => {

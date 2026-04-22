@@ -23,6 +23,8 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
+      - name: Dependency vulnerability scan
+        run: npm audit --audit-level=high
       - name: Run linter
         run: npm run lint
       - name: Run tests
